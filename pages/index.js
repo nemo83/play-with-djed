@@ -4,7 +4,6 @@ import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
 import { useEffect, useState } from "react"
 import toast, { Toaster } from 'react-hot-toast'
-import easy1Logo from '../public/easy1-logo.png'
 
 
 const inter = Inter({ subsets: ['latin'] })
