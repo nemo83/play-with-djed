@@ -178,7 +178,7 @@ export default function Home() {
     const coll = calcCollPct(totalDjedAmount, adaUsdRate, newAdaReserveAmt)
     console.log('coll: ' + coll)
 
-    if (coll != 0 && coll < 400) {
+    if (coll == 0 || coll < 400) {
       toast.error('Not enough collateral. Buy some $SHEN first')
       return
     }
