@@ -1,8 +1,7 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import toast, { Toaster } from 'react-hot-toast'
 
 
@@ -64,7 +63,7 @@ export default function Home() {
     console.log('djedSupplyInAda: ' + djedSupplyInAda)
 
     if (currentShenAmount > 0) {
-      const priceInAda = ((currentAdaReserveAmount - djedSupplyInAda) / currentShenAmount)
+      const priceInAda = Math.max(((currentAdaReserveAmount - djedSupplyInAda) / currentShenAmount), 0.001)
       return parseFloat(priceInAda).toFixed(6)
     } else {
       return 1.0 / adaUsdRate
@@ -212,7 +211,7 @@ export default function Home() {
     console.log('totalDjedAmount: ' + totalDjedAmount)
 
     const adaToBeRemoedFromReserve = djedAmountToBurn / adaUsdRate
-    console.log('adaToBeAddedInReserve: ' + adaToBeRemoedFromReserve)
+    console.log('adaToBeRemoedFromReserve: ' + adaToBeRemoedFromReserve)
 
     const opFee = opFeePct * adaToBeRemoedFromReserve
     console.log('opFee: ' + opFee)
@@ -294,7 +293,7 @@ export default function Home() {
           Shen Supply: {shenAmount} - Shen Supply in ADA: {parseFloat(shenAmount * shenPrice).toFixed(4)} - Shen Price in Ada (estimated): {shenPrice}
         </p>
         <p>
-          Ada Reserve: {adaReserveAmt - djedAmount / adaUsdRate} / Collateral (%): {collateralPct}
+          Ada Pool: {adaReserveAmt} / Ada Reserve: {adaReserveAmt - djedAmount / adaUsdRate} / Collateral (%): {collateralPct}
         </p>
         <p>
           Ada price: $ {adaUsdRate}
