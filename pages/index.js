@@ -340,6 +340,15 @@ export default function Home() {
         <h3>
           Do you like what you see? Consider supporting me delegating to the EASY1 Stake Pool
         </h3>
+        <div>
+          <h3>Some notes</h3>
+          <ul>
+            <li>DJED is designed that you can always burn $djed and get ada back</li>
+            <li>Any other operations mint djed and burn/mint shen, is subject to a healthy collateralization</li>
+            <li>$ada price in usd affect collateralization, test it buy adding or removing 1c</li>
+            <li>$ada price in usd affects $shen value directly. Look how good it is when ada price goes up #NFA</li>
+          </ul>
+        </div>
       </main>
     </>
   )
