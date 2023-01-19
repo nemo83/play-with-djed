@@ -344,7 +344,7 @@ export default function Home() {
           <h3>Some notes</h3>
           <ul>
             <li>
-              To allow you to stup whichever test case, when there are no $djed minted, you can mint/burn how many $shen you want, so you can create a
+              To allow you to setup whichever test case, when there are no $djed minted, you can mint/burn how many $shen you want, so you can create a
               simulation in the thousands or million of dollars. I would recommend to play with both small and large amounts.
             </li>
             <li>DJED is designed that you can always burn $djed and get ada back</li>
