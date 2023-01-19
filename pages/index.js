@@ -22,7 +22,7 @@ export default function Home() {
   const shenMintFeePct = 0.0002
   const shenBurnFeePct = 0.0005
 
-  const opFeePct = 0.005
+  const opFeePct = 0.0005
 
   const [djedAmount, setDjedAmount] = useState(0)
   const [shenAmount, setShenAmount] = useState(0)
@@ -351,6 +351,17 @@ export default function Home() {
             <li>Any other operations mint djed and burn/mint shen, is subject to a healthy collateralization</li>
             <li>$ada price in usd affect collateralization, test it buy adding or removing 1c</li>
             <li>$ada price in usd affects $shen value directly. Look how good it is when ada price goes up #NFA</li>
+            <li>Request fees: transaction fees that go into the reserve. It increases the reserve and the value of $shen </li>
+            <li>Operational fees: fees that are paid to COTI </li>
+          </ul>
+        </div>
+        <div>
+          <h3>Shen holder advantages/perkes</h3>
+          <ul>
+            <li>Ada in the reserve are staked on stakepool, rewards will go into the reserve and increase both reserve and $shen value </li>
+            <li>Transaction fees (shen and djed mint/burn) go in the reserve and increase both the reserve and $shen value</li>
+            <li>There will be $shen Liquidity Pool on the major DEXes. Possibly farms and further incentives</li>
+            <li>As you can experiment yourself, $shen appreciates if $ada appreciates. Investing for the long term could give nice earnings. #NFA.</li>
           </ul>
         </div>
       </main>
