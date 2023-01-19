@@ -207,7 +207,7 @@ export default function Home() {
     const opFee = opFeePct * adaToBeRemoedFromReserve
     console.log('opFee: ' + opFee)
 
-    const fee = djedMintFeePct * adaToBeRemoedFromReserve
+    const fee = djedBurnFeePct * adaToBeRemoedFromReserve
     console.log('fee: ' + fee)
 
     const newAdaReserveAmt = adaReserveAmt + fee - adaToBeRemoedFromReserve
@@ -313,7 +313,7 @@ export default function Home() {
         </div>
         <div>
           <span>
-            <button type="button" onClick={() => { burnDjed(djedAmountToMint) }} >
+            <button type="button" onClick={() => { burnDjed(djedAmountToBurn) }} >
               Burn Djed
             </button>
             <input type="text" value={djedAmountToBurn} onChange={(event) => setDjedAmountToBurn(parseFloat(event.target.value))}></input>
