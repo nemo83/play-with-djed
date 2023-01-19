@@ -116,6 +116,11 @@ export default function Home() {
 
   async function burnShen(shenAmountToBurn) {
 
+    if (shenAmountToBurn > shenAmount) {
+      toast.error('Trying to burn more shen than the circulating supply')
+      return
+    }
+
     const totalShenAmount = shenAmount - shenAmountToBurn
 
     const currentShenPriceInAda = shenPriceInAda(shenAmount, adaReserveAmt, djedAmount, adaUsdRate)
@@ -197,6 +202,11 @@ export default function Home() {
   }
 
   async function burnDjed(djedAmountToBurn) {
+
+    if (djedAmountToBurn > djedAmount) {
+      toast.error('Trying to burn more djed than the circulating supply')
+      return
+    }
 
     const totalDjedAmount = djedAmount - djedAmountToBurn
     console.log('totalDjedAmount: ' + totalDjedAmount)
