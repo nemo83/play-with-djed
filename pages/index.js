@@ -286,6 +286,10 @@ export default function Home() {
       <main className={styles.main}>
         <h1>Play with Djed</h1>
         <h2>Unofficial, educational website to experiment with Cardano/COTI Djed Stablecoin</h2>
+        <h3>
+          Sponsored by the
+          <a href='https://pool.pm/20df8645abddf09403ba2656cda7da2cd163973a5e439c6e43dcbea9'>EASY1 Stakepool</a>.
+          Delegate and earn extra rewards: <strong>$NTX</strong> and <strong>$WMT</strong>. Info: <a href='https://www.reddit.com/r/CardanoStakePools/comments/10d9n3e/earn_ntx_and_wmt_by_staking_with_the_easy1/'>here</a></h3>
         <p>
           Djed Supply: {djedAmount} - Djed Supply in ADA: {djedAmount / adaUsdRate}
         </p>
