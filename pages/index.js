@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { Inter } from '@next/font/google'
 import { useEffect, useState } from "react"
 import toast, { Toaster } from 'react-hot-toast'
-
+import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import {
@@ -310,17 +310,42 @@ export default function Home() {
         </div>
       </nav>
 
-      <div className="container w-full mx-auto pt-20 text-white">
-        <h1>Unofficial, educational website to experiment with Cardano/COTI Djed Stablecoin</h1>
-        <p>
-          This is not Financial advice. Use at your own risk.
-        </p>
-        <p>
-          This Djed Simulator was developed by <a href='https://twitter.com/CryptoJoe101'>Giovanni</a> EASY1 Stakepool Operator
-        </p>
+      <div className="container w-full mx-auto pt-20 flex flex-wrap">
+        <div className="w-full md:w-1/2 xl:w-1/3 p-3">
+
+          <div className="bg-gray-900 border border-gray-800 rounded shadow">
+            <div className="border-b border-gray-800 p-3">
+              <h5 className="font-bold uppercase text-gray-600">Disclaimer</h5>
+            </div>
+            <div className="p-5 text-gray-400">
+              <p>This is an unofficial, educational website to experiment with Cardano/COTI Djed Stablecoin</p>
+              <p>
+                This does not represent Financial advice. Use at your own risk.
+              </p>
+            </div>
+          </div>
+
+        </div>
+        <div className="w-full md:w-1/2 xl:w-1/3 p-3">
+
+          <div className="bg-gray-900 border border-gray-800 rounded shadow">
+            <div className="border-b border-gray-800 p-3">
+              <h5 className="font-bold uppercase text-gray-600">Kudos</h5>
+            </div>
+            <div className="p-5 text-gray-400">
+              <p>This Djed Simulator was developed by <Link href='https://twitter.com/CryptoJoe101' className='text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4'>Giovanni</Link> SPO of
+                <Link href="https://pool.pm/20df8645abddf09403ba2656cda7da2cd163973a5e439c6e43dcbea9" className='text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4'> EASY1 Stakepool</Link></p>
+              <p>
+                Delegate to EASY1 Stakepool and earn extra tokens such as <span className='text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4'>$NTX</span> and <span className='text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4'>$WMT</span> via Tosidrop.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
       </div>
 
-      <div className="container w-full mx-auto pt-20">
+      <div className="container w-full mx-auto pt-5">
 
         <div className="w-full px-4 md:px-0 md:mt-1 mb-1 text-gray-800 leading-normal">
 
