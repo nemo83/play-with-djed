@@ -112,7 +112,7 @@ export default function Home() {
     console.log('coll: ' + coll)
 
     if (coll != 0 && coll > 800) {
-      toast.error('Too much collateralization, buy some $DJED first')
+      toast.error('Too much collateralization. Try to mint less $SHEN or buy some $DJED first')
       return
     }
 
@@ -180,7 +180,7 @@ export default function Home() {
     console.log('coll: ' + coll)
 
     if (coll != 0 && coll < 400) {
-      toast.error('Not enough collateral')
+      toast.error('Not enough collateral. Try to burn less $SHEN')
       return
     }
 
@@ -222,7 +222,7 @@ export default function Home() {
     console.log('coll: ' + coll)
 
     if (coll == 0 || coll < 400) {
-      toast.error('Not enough collateral. Buy some $SHEN first')
+      toast.error('Not enough collateral. Try to mint less $DJED or buy some $SHEN first')
       return
     }
 
