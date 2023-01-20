@@ -125,7 +125,7 @@ export default function Home() {
     setOpFeeTotal(opFeeTotal + opFee)
     setFeeTotal(feeTotal + fee)
 
-    
+
     setCollateralColor(coll)
     setCollateralPct(coll)
   }
@@ -149,7 +149,7 @@ export default function Home() {
     } else {
       setCollColor('bg-purple-600')
       setCollStatus('Very High')
-    } 
+    }
   }
 
   async function burnShen(shenAmountToBurn) {
@@ -369,6 +369,19 @@ export default function Home() {
               <p>
                 Delegate to EASY1 Stakepool and earn extra tokens such as <span className='text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4'>$NTX</span> and <span className='text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4'>$WMT</span> via Tosidrop.
               </p>
+            </div>
+          </div>
+
+        </div>
+        <div className="w-full md:w-1/2 xl:w-1/3 p-3">
+
+          <div className="bg-gray-900 border border-gray-800 rounded shadow">
+            <div className="border-b border-gray-800 p-3">
+              <h5 className="font-bold uppercase text-gray-600">TIP</h5>
+            </div>
+            <div className="p-5 text-gray-400">
+              <p> Do you like the Djed/Shen simulator? Tip at <span className='text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4'>$CryptoJoe101</span>.</p>
+              <p>Thanks!</p>
             </div>
           </div>
 
