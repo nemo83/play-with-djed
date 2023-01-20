@@ -1,13 +1,25 @@
 import Head from 'next/head'
 import { Inter } from '@next/font/google'
-import styles from '@/styles/Home.module.css'
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import toast, { Toaster } from 'react-hot-toast'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import {
+  faTowerObservation, faA, faO, faPercent, faDollarSign
+} from "@fortawesome/free-solid-svg-icons";
 
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+
+  useEffect(() => {
+    document.body.classList.add("bg-black-alt");
+    document.body.classList.add("font-sans");
+    document.body.classList.add("leading-normal");
+    document.body.classList.add("tracking-normal");
+  });
 
   const setup = {
     adaInitialPrice: 0.34,
@@ -283,8 +295,323 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <h1>Play with Djed</h1>
+
+      <nav id="header" className="bg-gray-900 fixed w-full z-10 top-0 shadow">
+
+
+        <div className="w-full container mx-auto flex flex-wrap items-center mt-0 pt-3 pb-3 md:pb-0">
+
+          <div className="w-1/2 pl-2 md:pl-0">
+            <a className="text-gray-100 text-base xl:text-xl no-underline hover:no-underline font-bold" href="#">
+              <i className="fas fa-moon text-blue-400 pr-3"></i> Play with DJED
+            </a>
+          </div>
+
+        </div>
+      </nav>
+
+      <div className="container w-full mx-auto pt-20 text-white">
+        <h1>Unofficial, educational website to experiment with Cardano/COTI Djed Stablecoin</h1>
+
+
+      </div>
+
+      <div className="container w-full mx-auto pt-20">
+
+        <div className="w-full px-4 md:px-0 md:mt-4 mb-2 text-gray-800 leading-normal">
+
+
+          <div className="flex flex-wrap">
+            <div className="w-full md:w-1/2 xl:w-1/3 p-3">
+
+              <div className="bg-gray-900 border border-gray-800 rounded shadow p-2">
+                <div className="flex flex-row items-center">
+                  <div className="flex-shrink pr-4">
+                    <div className="rounded p-3 bg-green-600">
+                      <FontAwesomeIcon
+                        icon={faTowerObservation}
+                        className="text-3xl"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex-1 text-right md:text-center">
+                    <h5 className="font-bold uppercase text-gray-400">Dejd Supply</h5>
+                    <h3 className="font-bold text-3xl text-gray-600"> {djedAmount} </h3>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div className="w-full md:w-1/2 xl:w-1/3 p-3">
+
+              <div className="bg-gray-900 border border-gray-800 rounded shadow p-2">
+                <div className="flex flex-row items-center">
+                  <div className="flex-shrink pr-4">
+                    <div className="rounded p-3 bg-pink-600">
+                      <FontAwesomeIcon
+                        icon={faA}
+                        className="text-3xl"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex-1 text-right md:text-center">
+                    <h5 className="font-bold uppercase text-gray-400">Djed Supply in Ada</h5>
+                    <h3 className="font-bold text-3xl text-gray-600"> {djedAmount / adaUsdRate} </h3>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div className="w-full md:w-1/2 xl:w-1/3 p-3">
+
+            </div>
+            <div className="w-full md:w-1/2 xl:w-1/3 p-3">
+              <div className="bg-gray-900 border border-gray-800 rounded shadow p-2">
+                <div className="flex flex-row items-center">
+                  <div className="flex-shrink pr-4">
+                    <div className="rounded p-3 bg-blue-600">
+                      <FontAwesomeIcon
+                        icon={faO}
+                        className="text-3xl"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex-1 text-right md:text-center">
+                    <h5 className="font-bold uppercase text-gray-400">Shen Supply</h5>
+                    <h3 className="font-bold text-3xl text-gray-600"> {shenAmount} </h3>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div className="w-full md:w-1/2 xl:w-1/3 p-3">
+
+              <div className="bg-gray-900 border border-gray-800 rounded shadow p-2">
+                <div className="flex flex-row items-center">
+                  <div className="flex-shrink pr-4">
+                    <div className="rounded p-3 bg-pink-600">
+                      <FontAwesomeIcon
+                        icon={faA}
+                        className="text-3xl"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex-1 text-right md:text-center">
+                    <h5 className="font-bold uppercase text-gray-400">Shen Supply in Ada</h5>
+                    <h3 className="font-bold text-3xl text-gray-600"> {parseFloat(shenAmount * shenPrice).toFixed(4)} </h3>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div className="w-full md:w-1/2 xl:w-1/3 p-3">
+
+              <div className="bg-gray-900 border border-gray-800 rounded shadow p-2">
+                <div className="flex flex-row items-center">
+                  <div className="flex-shrink pr-4">
+                    <div className="rounded p-3 bg-pink-600">
+                      <FontAwesomeIcon
+                        icon={faA}
+                        className="text-3xl"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex-1 text-right md:text-center">
+                    <h5 className="font-bold uppercase text-gray-400">Shen Price in Ada (estimated)</h5>
+                    <h3 className="font-bold text-3xl text-gray-600"> {shenPrice} </h3>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+
+          <hr className="border-b-2 border-gray-600 my-8 mx-4">
+          </hr>
+
+          <div className="flex flex-wrap">
+            <div className="w-full md:w-1/2 xl:w-1/3 p-3">
+
+              <div className="bg-gray-900 border border-gray-800 rounded shadow p-2">
+                <div className="flex flex-row items-center">
+                  <div className="flex-shrink pr-4">
+                    <div className="rounded p-3 bg-green-600">
+                      <FontAwesomeIcon
+                        icon={faA}
+                        className="text-3xl"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex-1 text-right md:text-center">
+                    <h5 className="font-bold uppercase text-gray-400">Ada pool</h5>
+                    <h3 className="font-bold text-3xl text-gray-600"> {parseFloat(adaReserveAmt).toFixed(4)} </h3>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div className="w-full md:w-1/2 xl:w-1/3 p-3">
+
+              <div className="bg-gray-900 border border-gray-800 rounded shadow p-2">
+                <div className="flex flex-row items-center">
+                  <div className="flex-shrink pr-4">
+                    <div className="rounded p-3 bg-pink-600">
+                      <FontAwesomeIcon
+                        icon={faA}
+                        className="text-3xl"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex-1 text-right md:text-center">
+                    <h5 className="font-bold uppercase text-gray-400">Ada Reserve</h5>
+                    <h3 className="font-bold text-3xl text-gray-600"> {parseFloat(adaReserveAmt - djedAmount / adaUsdRate).toFixed(4)}</h3>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div className="w-full md:w-1/2 xl:w-1/3 p-3">
+
+              <div className="bg-gray-900 border border-gray-800 rounded shadow p-2">
+                <div className="flex flex-row items-center">
+                  <div className="flex-shrink pr-4">
+                    <div className="rounded p-3 bg-pink-600">
+                      <FontAwesomeIcon
+                        icon={faPercent}
+                        className="text-3xl"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex-1 text-right md:text-center">
+                    <h5 className="font-bold uppercase text-gray-400">Collateral </h5>
+                    <h3 className="font-bold text-3xl text-gray-600"> {collateralPct} %</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div className="w-full md:w-1/2 xl:w-1/3 p-3">
+              <div className="bg-gray-900 border border-gray-800 rounded shadow p-2">
+                <div className="flex flex-row items-center">
+                  <div className="flex-shrink pr-4">
+                    <div className="rounded p-3 bg-blue-600">
+                      <FontAwesomeIcon
+                        icon={faDollarSign}
+                        className="text-3xl"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex-1 text-right md:text-center">
+                    <h5 className="font-bold uppercase text-gray-400">Ada Price</h5>
+                    <h3 className="font-bold text-3xl text-gray-600"> {adaUsdRate} </h3>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div className="w-full md:w-1/2 xl:w-1/3 p-3">
+
+              <div className="bg-gray-900 border border-gray-800 rounded shadow p-2">
+                <div className="flex flex-row items-center">
+                  <div className="flex-shrink pr-4">
+                    <div className="rounded p-3 bg-pink-600">
+                      <FontAwesomeIcon
+                        icon={faA}
+                        className="text-3xl"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex-1 text-right md:text-center">
+                    <h5 className="font-bold uppercase text-gray-400"> Request Fees (Back into Reserve) </h5>
+                    <h3 className="font-bold text-3xl text-gray-600"> {parseFloat(feeTotal).toFixed(6)}</h3>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div className="w-full md:w-1/2 xl:w-1/3 p-3">
+
+              <div className="bg-gray-900 border border-gray-800 rounded shadow p-2">
+                <div className="flex flex-row items-center">
+                  <div className="flex-shrink pr-4">
+                    <div className="rounded p-3 bg-pink-600">
+                      <FontAwesomeIcon
+                        icon={faA}
+                        className="text-3xl"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex-1 text-right md:text-center">
+                    <h5 className="font-bold uppercase text-gray-400">Operational Fee (COTI treasury) </h5>
+                    <h3 className="font-bold text-3xl text-gray-600"> {parseFloat(opFeeTotal).toFixed(6)} </h3>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+      <div className="container w-full mx-auto pt-20">
+
+        <div className="w-full px-4 md:px-0 md:mt-2 mb-2 text-gray-800 leading-normal">
+
+
+          <div className="flex flex-wrap">
+            <div className="w-full md:w-1/2 xl:w-1/3 p-3 text-center">
+
+              <div >
+                <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' type="button" onClick={() => { mintDjed(djedAmountToMint) }} >
+                  Mint Djed
+                </button>
+                <input type="text" className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-100 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' value={djedAmountToMint} onChange={(event) => setDjedAmountToMint(parseFloat(event.target.value))}></input>
+              </div>
+              <div >
+                <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' type="button" onClick={() => { burnDjed(djedAmountToBurn) }} >
+                  Burn Djed
+                </button>
+                <input type="text" className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-100 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' value={djedAmountToBurn} onChange={(event) => setDjedAmountToBurn(parseFloat(event.target.value))}></input>
+              </div>
+
+            </div>
+            <div className="w-full md:w-1/2 xl:w-1/3 p-3 text-center">
+              <div>
+                <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' type="button" onClick={() => { mintShen(shenAmountToMint) }} >
+                  Mint Shen
+                </button>
+                <input type="text" className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-100 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' value={shenAmountToMint} onChange={(event) => setShenAmountToMint(parseFloat(event.target.value))}></input>
+              </div>
+              <div>
+                <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' type="button" onClick={() => { burnShen(shenAmountToBurn) }} >
+                  Burn Shen
+                </button>
+                <input type="text" className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-100 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500' value={shenAmountToBurn} onChange={(event) => setShenAmountToBurn(parseFloat(event.target.value))}></input>
+              </div>
+            </div>
+            <div className="w-full md:w-1/2 xl:w-1/3 p-3">
+              <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' type="button" onClick={() => { increaseAdaPrice() }} >
+                Increase ADA Price (+0.01 usd)
+              </button>
+              <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' type="button" onClick={() => { decreaseAdaPrice() }} >
+                Decrease ADA Price (-0.01 usd)
+              </button>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+      <div hidden>
+        <h1 className="text-3xl font-bold underline">Play with Djed</h1>
         <h2>Unofficial, educational website to experiment with Cardano/COTI Djed Stablecoin</h2>
         <h3>
           SPONSOR: <a href='https://pool.pm/20df8645abddf09403ba2656cda7da2cd163973a5e439c6e43dcbea9'><u>EASY1 Stakepool</u></a>. Delegate and earn extra rewards: <strong>$NTX</strong> and <strong>$WMT</strong>. Info: <a href='https://www.reddit.com/r/CardanoStakePools/comments/10d9n3e/earn_ntx_and_wmt_by_staking_with_the_easy1/'><u>here</u></a></h3>
@@ -370,7 +697,7 @@ export default function Home() {
             <li>As you can experiment yourself, $shen appreciates if $ada appreciates. Investing for the long term could give nice earnings. #NFA.</li>
           </ul>
         </div>
-      </main>
+      </div>
     </>
   )
 }
