@@ -53,6 +53,9 @@ export default function Home() {
   const [shenAmountToMint, setShenAmountToMint] = useState(100)
   const [shenAmountToBurn, setShenAmountToBurn] = useState(100)
 
+  const [collColor, setCollColor] = useState('bg-white')
+  const [collStatus, setCollStatus] = useState('N/A')
+
   function calcCollPct(currentDjedSupply, currentAdaUsdRate, currentAdaReserveAmount) {
 
     const djedSupplyInAda = currentDjedSupply / currentAdaUsdRate
@@ -122,7 +125,31 @@ export default function Home() {
     setOpFeeTotal(opFeeTotal + opFee)
     setFeeTotal(feeTotal + fee)
 
+    
+    setCollateralColor(coll)
     setCollateralPct(coll)
+  }
+
+  function setCollateralColor(coll) {
+    if (coll == 0) {
+      setCollColor('bg-white')
+      setCollStatus('N/A')
+    } else if (coll < 400) {
+      setCollColor('bg-red-600')
+      setCollStatus('Very Low')
+    } else if (coll < 500) {
+      setCollColor('bg-orange-300')
+      setCollStatus('Low')
+    } else if (coll < 700) {
+      setCollColor('bg-green-300')
+      setCollStatus('Ideal')
+    } else if (coll < 800) {
+      setCollColor('bg-blue-600')
+      setCollStatus('High')
+    } else {
+      setCollColor('bg-purple-600')
+      setCollStatus('Very High')
+    } 
   }
 
   async function burnShen(shenAmountToBurn) {
@@ -166,7 +193,7 @@ export default function Home() {
     console.log('newShenPriceInAda: ' + newShenPriceInAda)
     setShenPrice(newShenPriceInAda)
 
-
+    setCollateralColor(coll)
     setCollateralPct(coll)
   }
 
@@ -209,6 +236,7 @@ export default function Home() {
     console.log('newShenPriceInAda: ' + newShenPriceInAda)
     setShenPrice(newShenPriceInAda)
 
+    setCollateralColor(coll)
     setCollateralPct(coll)
   }
 
@@ -247,6 +275,7 @@ export default function Home() {
     console.log('newShenPriceInAda: ' + newShenPriceInAda)
     setShenPrice(newShenPriceInAda)
 
+    setCollateralColor(coll)
     setCollateralPct(coll)
   }
 
@@ -266,6 +295,7 @@ export default function Home() {
 
     const coll = calcCollPct(djedAmount, adaUsdRate, adaReserveAmt)
     console.log('coll: ' + coll)
+    setCollateralColor(coll)
     setCollateralPct(coll)
 
   }
@@ -282,6 +312,7 @@ export default function Home() {
 
     const coll = calcCollPct(djedAmount, adaUsdRate, adaReserveAmt)
     console.log('coll: ' + coll)
+    setCollateralColor(coll)
     setCollateralPct(coll)
 
   }
@@ -506,7 +537,7 @@ export default function Home() {
               <div className="bg-gray-900 border border-gray-800 rounded shadow p-2">
                 <div className="flex flex-row items-center">
                   <div className="flex-shrink pr-4">
-                    <div className="rounded p-3 bg-pink-600">
+                    <div className={`rounded p-3 ` + collColor}>
                       <FontAwesomeIcon
                         icon={faPercent}
                         className="text-3xl"
@@ -515,7 +546,7 @@ export default function Home() {
                   </div>
                   <div className="flex-1 text-right md:text-center">
                     <h5 className="font-bold uppercase text-gray-400">Collateral </h5>
-                    <h3 className="font-bold text-3xl text-gray-600"> {collateralPct} %</h3>
+                    <h3 className="font-bold text-3xl text-gray-600"> {collateralPct} % ({collStatus})</h3>
                   </div>
                 </div>
               </div>
