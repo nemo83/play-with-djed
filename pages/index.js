@@ -312,13 +312,17 @@ export default function Home() {
 
       <div className="container w-full mx-auto pt-20 text-white">
         <h1>Unofficial, educational website to experiment with Cardano/COTI Djed Stablecoin</h1>
-
-
+        <p>
+          This is not Financial advice. Use at your own risk.
+        </p>
+        <p>
+          This Djed Simulator was developed by <a href='https://twitter.com/CryptoJoe101'>Giovanni</a> EASY1 Stakepool Operator
+        </p>
       </div>
 
       <div className="container w-full mx-auto pt-20">
 
-        <div className="w-full px-4 md:px-0 md:mt-4 mb-2 text-gray-800 leading-normal">
+        <div className="w-full px-4 md:px-0 md:mt-1 mb-1 text-gray-800 leading-normal">
 
 
           <div className="flex flex-wrap">
@@ -561,7 +565,7 @@ export default function Home() {
 
       <div className="container w-full mx-auto pt-20">
 
-        <div className="w-full px-4 md:px-0 md:mt-2 mb-2 text-gray-800 leading-normal">
+        <div className="w-full px-4 md:px-0 md:mt-1 mb-1 text-gray-800 leading-normal">
 
 
           <div className="flex flex-wrap">
