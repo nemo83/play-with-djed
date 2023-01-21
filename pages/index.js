@@ -379,9 +379,9 @@ export default function Home() {
                       <div className="p-5 text-black">
                         <div className='m-2'>
                           <h2 className='font-medium text-xl'>What is Djed</h2>
-                          <p>Cardano's native overcollateralized stablecoin, developed by IOG and powered by COTI. $DJED is backed by $ADA and uses $SHEN as a reserve coin.</p>
+                          <p>Cardano&aposs native overcollateralized stablecoin, developed by IOG and powered by COTI. $DJED is backed by $ADA and uses $SHEN as a reserve coin.</p>
                           <p>
-                            To ensure Djed's stability, it uses a collateral ratio between 400% and 800% for $DJED and $SHEN.
+                            To ensure Djed&aposs stability, it uses a collateral ratio between 400% and 800% for $DJED and $SHEN.
                           </p>
                         </div>
                         <div className='m-2'>
