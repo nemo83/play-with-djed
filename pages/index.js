@@ -383,6 +383,9 @@ export default function Home() {
                           <p>
                             To ensure Djed&aposs stability, it uses a collateral ratio between 400% and 800% for $DJED and $SHEN.
                           </p>
+                          <p>
+                            Find out more on <Link href="https://djed.xyz" className='text-blue-600 hover:text-blue-700 transition duration-300 ease-in-out mb-4'>djed.xyz</Link>
+                          </p>
                         </div>
                         <div className='m-2'>
                           <h2 className='font-medium text-xl'>Initial setup</h2>
