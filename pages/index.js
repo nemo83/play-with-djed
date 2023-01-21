@@ -56,6 +56,8 @@ export default function Home() {
   const [collColor, setCollColor] = useState('bg-white')
   const [collStatus, setCollStatus] = useState('N/A')
 
+  const [showModal, setShowModal] = useState(true)
+
   function calcCollPct(currentDjedSupply, currentAdaUsdRate, currentAdaReserveAmount) {
 
     const djedSupplyInAda = currentDjedSupply / currentAdaUsdRate
@@ -329,16 +331,97 @@ export default function Home() {
 
       <nav id="header" className="bg-gray-900 fixed w-full z-10 top-0 shadow">
 
-
         <div className="w-full container mx-auto flex flex-wrap items-center mt-0 pt-3 pb-3 md:pb-0">
-
           <div className="w-1/2 pl-2 md:pl-0">
             <a className="text-gray-100 text-base xl:text-xl no-underline hover:no-underline font-bold" href="#">
               <i className="fas fa-moon text-blue-400 pr-3"></i> Play with DJED
             </a>
           </div>
 
+          <div className="relative pl-4 pr-4 space-x-2 dropdown pull-right md:pr-0">
+            <div className="relative inline-block">
+              <div>
+                <button
+                  className='px-3 py-2 rounded-full dropdown-toggle bg-slate-300 hover:bg-slate-400'
+                  type="button"
+                  id="menu-button"
+                  aria-expanded="true"
+                  aria-haspopup="true"
+                  onClick={() => setShowModal(!showModal)}
+                >Help</button>
+              </div>
+            </div>
+
+
+          </div>
         </div>
+
+
+
+        {showModal ? (
+          <>
+            <div className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none">
+              <div className="relative w-auto max-w-3xl mx-auto my-6">
+                <div className="relative flex flex-col w-full bg-gray-400 border-0 rounded-lg shadow-lg outline-none focus:outline-none">
+                  <div className="flex items-start justify-between p-5 border-b border-gray-300 border-solid rounded-t ">
+                    <h3 className="text-3xl font=semibold capitalize">Help</h3>
+                    <button
+                      className="float-right text-black bg-transparent border-0"
+                      onClick={() => setShowModal(false)}
+                    >
+                      <span className="block w-6 h-6 py-0 text-xl text-black bg-gray-400 rounded-full opacity-7">
+                        x
+                      </span>
+                    </button>
+                  </div>
+                  <div className="relative flex-auto p-6">
+                    <div className="border border-gray-800 rounded shadow">
+                      <div className="p-5 text-black">
+                        <div className='m-2'>
+                          <h2 className='font-medium text-xl'>What is Djed</h2>
+                          <p>Cardano's native overcollateralized stablecoin, developed by IOG and powered by COTI. $DJED is backed by $ADA and uses $SHEN as a reserve coin.</p>
+                          <p>
+                            To ensure Djed's stability, it uses a collateral ratio between 400% and 800% for $DJED and $SHEN.
+                          </p>
+                        </div>
+                        <div className='m-2'>
+                          <h2 className='font-medium text-xl'>Initial setup</h2>
+                          <p>
+                            To allow you to setup whichever test case, when there are no $djed minted, you can mint/burn as much $shen you want, so you can create a
+                            simulation in the thousands or million of dollars. I would recommend to play with both small and large amounts.
+                          </p>
+                        </div>
+                        <div className='m-2'>
+                          <h2 className='font-medium text-xl'>Djed and Shen rules</h2>
+                          <ul className='list-disc'>
+                            <li>You can always burn $djed and withdraw ada back</li>
+                            <li>Minting djed and burning/minting shen, is subject to a healthy collateralization</li>
+                            <li>$ada price in usd affects collateralization, test it by adjusting $ada price</li>
+                            <li>Request fees: transaction fees that go into the reserve. It increases both the reserve (collateralization) and the value of $shen </li>
+                            <li>Operational fees: fees that are paid to COTI </li>
+                          </ul>
+                        </div>
+                        <div className='m-2'>
+                          <h2 className='font-medium text-xl'>Shen holder advantages/perkes</h2>
+                          <ul className='list-disc'>
+                            <li>Ada in the reserve are staked on stakepool, rewards will go into the reserve and increase both reserve and $shen value </li>
+                            <li>$ada price in usd affects $shen value directly. Look how good it is when ada price goes up #NFA</li>
+                            <li>There will be $shen Liquidity Pool on the major DEXes. Possibly farms and further incentives</li>
+                            <li>As you can experiment yourself, $shen appreciates if $ada appreciates. Investing for the long term could give nice earnings. #NFA.</li>
+                          </ul>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </>
+        ) : null}
+
+
       </nav>
 
       <div className="container w-full mx-auto pt-20 flex flex-wrap">
