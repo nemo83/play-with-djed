@@ -56,7 +56,7 @@ export default function Home() {
   const [collColor, setCollColor] = useState('bg-white')
   const [collStatus, setCollStatus] = useState('N/A')
 
-  const [showModal, setShowModal] = useState(true)
+  const [showModal, setShowModal] = useState(false)
 
   function calcCollPct(currentDjedSupply, currentAdaUsdRate, currentAdaReserveAmount) {
 
