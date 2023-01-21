@@ -397,6 +397,7 @@ export default function Home() {
                             <li>You can always burn $djed and withdraw ada back</li>
                             <li>Minting djed and burning/minting shen, is subject to a healthy collateralization</li>
                             <li>$ada price in usd affects collateralization, test it by adjusting $ada price</li>
+                            <li>If you get a warning, try to mint/burn a smaller amount of $djed/$shen</li>
                             <li>Request fees: transaction fees that go into the reserve. It increases both the reserve (collateralization) and the value of $shen </li>
                             <li>Operational fees: fees that are paid to COTI </li>
                           </ul>
