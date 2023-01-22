@@ -27,13 +27,13 @@ export default function Home() {
     adaReserveInitialAmount: 4000000
   }
 
-  const djedMintFeePct = 0.0015
-  const djedBurnFeePct = 0.0015
+  const djedMintFeePct = 0.015
+  const djedBurnFeePct = 0.015
 
-  const shenMintFeePct = 0.0002
-  const shenBurnFeePct = 0.0005
+  const shenMintFeePct = 0.002
+  const shenBurnFeePct = 0.005
 
-  const opFeePct = 0.0005
+  const opFeePct = 0.005
 
   const [djedAmount, setDjedAmount] = useState(0)
   const [shenAmount, setShenAmount] = useState(0)
