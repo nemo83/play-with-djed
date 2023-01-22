@@ -40,7 +40,7 @@ export default function Home() {
   const [adaUsdRate, setAdaUsdRate] = useState(0.5) // 1 ada is worth X usd
   const [adaReserveAmt, setAdaReserveAmt] = useState(0)
 
-  const [shenPrice, setShenPrice] = useState(0.0)
+  const [shenPrice, setShenPrice] = useState(1.0)
 
   const [collateralPct, setCollateralPct] = useState(0.0)
 
@@ -66,8 +66,7 @@ export default function Home() {
     if (djedSupplyInAda == 0) {
       return 0.0
     } else {
-      const reserve = currentAdaReserveAmount - djedSupplyInAda
-      const rate = reserve / djedSupplyInAda
+      const rate = (currentAdaReserveAmount + djedSupplyInAda) / djedSupplyInAda
       return parseFloat(rate).toFixed(2) * 100
     }
 
@@ -83,7 +82,7 @@ export default function Home() {
       const priceInAda = Math.max(((currentAdaReserveAmount - djedSupplyInAda) / currentShenAmount), 0.001)
       return parseFloat(priceInAda).toFixed(6)
     } else {
-      return 1.0 / adaUsdRate
+      return 1.0
     }
   }
 
@@ -100,9 +99,6 @@ export default function Home() {
 
     const adaToBeAddedInReserve = currentShenPriceInAda * shenAmountToMint
     console.log('adaToBeAddedInReserve: ' + adaToBeAddedInReserve)
-
-    const opFee = opFeePct * adaToBeAddedInReserve
-    console.log('opFee: ' + opFee)
 
     const fee = shenMintFeePct * adaToBeAddedInReserve
     console.log('fee: ' + fee)
@@ -124,7 +120,6 @@ export default function Home() {
 
     setShenAmount(totalShenAmount)
     setAdaReserveAmt(newAdaReserveAmt)
-    setOpFeeTotal(opFeeTotal + opFee)
     setFeeTotal(feeTotal + fee)
 
 
@@ -169,9 +164,6 @@ export default function Home() {
     const adaToBeRemovedFromReserve = currentShenPriceInAda * shenAmountToBurn
     console.log('adaToBeRemovedFromReserve: ' + adaToBeRemovedFromReserve)
 
-    const opFee = opFeePct * adaToBeRemovedFromReserve
-    console.log('opFee: ' + opFee)
-
     const fee = shenBurnFeePct * adaToBeRemovedFromReserve
     console.log('fee: ' + fee)
 
@@ -188,7 +180,6 @@ export default function Home() {
 
     setShenAmount(totalShenAmount)
     setAdaReserveAmt(newAdaReserveAmt)
-    setOpFeeTotal(opFeeTotal + opFee)
     setFeeTotal(feeTotal + fee)
 
     const newShenPriceInAda = shenPriceInAda(totalShenAmount, newAdaReserveAmt, djedAmount, adaUsdRate)
@@ -604,7 +595,7 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="flex-1 text-right md:text-center">
-                    <h5 className="font-bold uppercase text-gray-400">Ada pool</h5>
+                    <h5 className="font-bold uppercase text-gray-400">Ada Reserve</h5>
                     <h3 className="font-bold text-3xl text-gray-600"> {parseFloat(adaReserveAmt).toFixed(4)} </h3>
                   </div>
                 </div>
@@ -624,7 +615,7 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="flex-1 text-right md:text-center">
-                    <h5 className="font-bold uppercase text-gray-400">Ada Reserve</h5>
+                    <h5 className="font-bold uppercase text-gray-400">Shen Supply in ADA (Equity)</h5>
                     <h3 className="font-bold text-3xl text-gray-600"> {parseFloat(adaReserveAmt - djedAmount / adaUsdRate).toFixed(4)}</h3>
                   </div>
                 </div>
