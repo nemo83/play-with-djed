@@ -66,7 +66,7 @@ export default function Home() {
     if (djedSupplyInAda == 0) {
       return 0.0
     } else {
-      const rate = (currentAdaReserveAmount + djedSupplyInAda) / djedSupplyInAda
+      const rate = currentAdaReserveAmount / djedSupplyInAda
       return parseFloat(rate).toFixed(2) * 100
     }
 
