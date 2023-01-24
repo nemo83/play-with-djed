@@ -286,7 +286,7 @@ export default function Home() {
     console.log('newShenPriceInAda: ' + newShenPriceInAda)
     setShenPrice(newShenPriceInAda)
 
-    const coll = calcCollPct(djedAmount, adaUsdRate, adaReserveAmt)
+    const coll = calcCollPct(djedAmount, newAdaPrice, adaReserveAmt)
     console.log('coll: ' + coll)
     setCollateralColor(coll)
     setCollateralPct(coll)
@@ -303,7 +303,7 @@ export default function Home() {
     console.log('newShenPriceInAda: ' + newShenPriceInAda)
     setShenPrice(newShenPriceInAda)
 
-    const coll = calcCollPct(djedAmount, adaUsdRate, adaReserveAmt)
+    const coll = calcCollPct(djedAmount, newAdaPrice, adaReserveAmt)
     console.log('coll: ' + coll)
     setCollateralColor(coll)
     setCollateralPct(coll)
@@ -487,7 +487,7 @@ export default function Home() {
                   </div>
                   <div className="flex-1 text-right md:text-center">
                     <h5 className="font-bold uppercase text-gray-400">Dejd Supply</h5>
-                    <h3 className="font-bold text-3xl text-gray-600"> {djedAmount} </h3>
+                    <h3 className="font-bold text-3xl text-gray-600"> {parseFloat(djedAmount).toFixed(4)} </h3>
                   </div>
                 </div>
               </div>
@@ -507,7 +507,7 @@ export default function Home() {
                   </div>
                   <div className="flex-1 text-right md:text-center">
                     <h5 className="font-bold uppercase text-gray-400">Djed Supply in Ada</h5>
-                    <h3 className="font-bold text-3xl text-gray-600"> {djedAmount / adaUsdRate} </h3>
+                    <h3 className="font-bold text-3xl text-gray-600"> {parseFloat(djedAmount / adaUsdRate).toFixed(4)} </h3>
                   </div>
                 </div>
               </div>
@@ -529,7 +529,7 @@ export default function Home() {
                   </div>
                   <div className="flex-1 text-right md:text-center">
                     <h5 className="font-bold uppercase text-gray-400">Shen Supply</h5>
-                    <h3 className="font-bold text-3xl text-gray-600"> {shenAmount} </h3>
+                    <h3 className="font-bold text-3xl text-gray-600"> {parseFloat(shenAmount).toFixed(4)} </h3>
                   </div>
                 </div>
               </div>
@@ -569,7 +569,7 @@ export default function Home() {
                   </div>
                   <div className="flex-1 text-right md:text-center">
                     <h5 className="font-bold uppercase text-gray-400">Shen Price in Ada (estimated)</h5>
-                    <h3 className="font-bold text-3xl text-gray-600"> {shenPrice} </h3>
+                    <h3 className="font-bold text-3xl text-gray-600"> {parseFloat(shenPrice).toFixed(4)} </h3>
                   </div>
                 </div>
               </div>
@@ -637,7 +637,7 @@ export default function Home() {
                   </div>
                   <div className="flex-1 text-right md:text-center">
                     <h5 className="font-bold uppercase text-gray-400">Collateral </h5>
-                    <h3 className="font-bold text-3xl text-gray-600"> {collateralPct} % ({collStatus})</h3>
+                    <h3 className="font-bold text-3xl text-gray-600"> {parseFloat(collateralPct).toFixed(4)} % ({collStatus})</h3>
                   </div>
                 </div>
               </div>
@@ -657,7 +657,7 @@ export default function Home() {
                   </div>
                   <div className="flex-1 text-right md:text-center">
                     <h5 className="font-bold uppercase text-gray-400">Ada Price</h5>
-                    <h3 className="font-bold text-3xl text-gray-600"> {adaUsdRate} </h3>
+                    <h3 className="font-bold text-3xl text-gray-600"> {parseFloat(adaUsdRate).toFixed(4)} </h3>
                   </div>
                 </div>
               </div>
@@ -678,7 +678,7 @@ export default function Home() {
                   </div>
                   <div className="flex-1 text-right md:text-center">
                     <h5 className="font-bold uppercase text-gray-400"> Request Fees (Back into Reserve) </h5>
-                    <h3 className="font-bold text-3xl text-gray-600"> {parseFloat(feeTotal).toFixed(6)}</h3>
+                    <h3 className="font-bold text-3xl text-gray-600"> {parseFloat(feeTotal).toFixed(4)}</h3>
                   </div>
                 </div>
               </div>
@@ -698,7 +698,7 @@ export default function Home() {
                   </div>
                   <div className="flex-1 text-right md:text-center">
                     <h5 className="font-bold uppercase text-gray-400">Operational Fee (COTI treasury) </h5>
-                    <h3 className="font-bold text-3xl text-gray-600"> {parseFloat(opFeeTotal).toFixed(6)} </h3>
+                    <h3 className="font-bold text-3xl text-gray-600"> {parseFloat(opFeeTotal).toFixed(4)} </h3>
                   </div>
                 </div>
               </div>
