@@ -125,6 +125,8 @@ export default function Home() {
 
     setCollateralColor(coll)
     setCollateralPct(coll)
+
+    toast.success('You successfully minted ' + shenAmountToMint + ' $shen \n\nFor ' + parseFloat(adaToBeAddedInReserve).toFixed(4) + ' $ada.\n\nFees: ' + parseFloat(fee).toFixed(4) + ' $ada', { duration: 7000 })
   }
 
   function setCollateralColor(coll) {
@@ -188,6 +190,8 @@ export default function Home() {
 
     setCollateralColor(coll)
     setCollateralPct(coll)
+
+    toast.success('You successfully burned ' + shenAmountToBurn + ' $shen \n\nReceived ' + parseFloat(adaToBeRemovedFromReserve).toFixed(4) + ' $ada.\n\nFees: ' + parseFloat(fee).toFixed(4) + ' $ada', { duration: 7000 })
   }
 
   async function mintOneShen() {
@@ -231,6 +235,8 @@ export default function Home() {
 
     setCollateralColor(coll)
     setCollateralPct(coll)
+
+    toast.success('You successfully minted ' + djedAmountToMint + ' $djed \n\nFor ' + parseFloat(adaToBeAddedInReserve).toFixed(4) + ' $ada.\n\nFees: ' + parseFloat(fee + opFee).toFixed(4) + ' $ada', { duration: 7000 })
   }
 
   async function burnDjed(djedAmountToBurn) {
@@ -270,6 +276,8 @@ export default function Home() {
 
     setCollateralColor(coll)
     setCollateralPct(coll)
+
+    toast.success('You successfully burned ' + djedAmountToBurn + ' $djed \n\nReceived ' + parseFloat(adaToBeRemoedFromReserve).toFixed(4) + ' $ada.\n\nFees: ' + parseFloat(fee + opFee).toFixed(4) + ' $ada', { duration: 7000 })
   }
 
   async function mintOneDjed() {
