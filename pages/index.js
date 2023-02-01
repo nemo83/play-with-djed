@@ -30,10 +30,15 @@ export default function Home() {
   const djedMintFeePct = 0.015
   const djedBurnFeePct = 0.015
 
-  const shenMintFeePct = 0.002
-  const shenBurnFeePct = 0.005
+  const shenMintFeePct = 0.015
+  const shenBurnFeePct = 0.015
 
-  const opFeePct = 0.005
+  const minDjedMintAmount = 5000
+  const minDjedBurnAmount = 1000
+  const minShenMintAmount = 5000
+  const minShenBurnAmount = 2500
+
+  const opFeeCostInAda = 100
 
   const [djedAmount, setDjedAmount] = useState(0)
   const [shenAmount, setShenAmount] = useState(0)
@@ -48,10 +53,10 @@ export default function Home() {
 
   const [feeTotal, setFeeTotal] = useState(0.0)
 
-  const [djedAmountToMint, setDjedAmountToMint] = useState(100)
-  const [djedAmountToBurn, setDjedAmountToBurn] = useState(100)
-  const [shenAmountToMint, setShenAmountToMint] = useState(100)
-  const [shenAmountToBurn, setShenAmountToBurn] = useState(100)
+  const [djedAmountToMint, setDjedAmountToMint] = useState(minDjedMintAmount)
+  const [djedAmountToBurn, setDjedAmountToBurn] = useState(minDjedBurnAmount)
+  const [shenAmountToMint, setShenAmountToMint] = useState(minShenMintAmount)
+  const [shenAmountToBurn, setShenAmountToBurn] = useState(minShenBurnAmount)
 
   const [collColor, setCollColor] = useState('bg-white')
   const [collStatus, setCollStatus] = useState('N/A')
@@ -90,45 +95,6 @@ export default function Home() {
     return shenPriceInAda * adaUsdRate
   }
 
-  async function mintShen(shenAmountToMint) {
-
-    const totalShenAmount = shenAmount + shenAmountToMint
-
-    const currentShenPriceInAda = shenPriceInAda(shenAmount, adaReserveAmt, djedAmount, adaUsdRate)
-    console.log('currentShenPriceInAda: ' + currentShenPriceInAda)
-
-    const adaToBeAddedInReserve = currentShenPriceInAda * shenAmountToMint
-    console.log('adaToBeAddedInReserve: ' + adaToBeAddedInReserve)
-
-    const fee = shenMintFeePct * adaToBeAddedInReserve
-    console.log('fee: ' + fee)
-
-    const newAdaReserveAmt = adaReserveAmt + fee + adaToBeAddedInReserve
-    console.log('newAdaReserveAmt: ' + newAdaReserveAmt)
-
-    const coll = calcCollPct(djedAmount, adaUsdRate, newAdaReserveAmt)
-    console.log('coll: ' + coll)
-
-    if (coll != 0 && coll > 800) {
-      toast.error('Too much collateralization. Try to mint less $SHEN or buy some $DJED first')
-      return
-    }
-
-    const newShenPriceInAda = shenPriceInAda(totalShenAmount, newAdaReserveAmt, djedAmount, adaUsdRate)
-    console.log('newShenPriceInAda: ' + newShenPriceInAda)
-    setShenPrice(newShenPriceInAda)
-
-    setShenAmount(totalShenAmount)
-    setAdaReserveAmt(newAdaReserveAmt)
-    setFeeTotal(feeTotal + fee)
-
-
-    setCollateralColor(coll)
-    setCollateralPct(coll)
-
-    toast.success('You successfully minted ' + shenAmountToMint + ' $shen \n\nFor ' + parseFloat(adaToBeAddedInReserve).toFixed(4) + ' $ada.\n\nFees: ' + parseFloat(fee).toFixed(4) + ' $ada', { duration: 7000 })
-  }
-
   function setCollateralColor(coll) {
     if (coll == 0) {
       setCollColor('bg-white')
@@ -151,7 +117,50 @@ export default function Home() {
     }
   }
 
+  async function mintShen(shenAmountToMint) {
+
+    if (shenAmountToMint < minShenMintAmount) {
+      toast.error('You cannot mint less than ' + minShenMintAmount + ' $shen')
+      return
+    }
+
+    const totalShenAmount = shenAmount + shenAmountToMint
+
+    const currentShenPriceInAda = shenPriceInAda(shenAmount, adaReserveAmt, djedAmount, adaUsdRate)
+    const adaToBeAddedInReserve = currentShenPriceInAda * shenAmountToMint
+    const fee = shenMintFeePct * adaToBeAddedInReserve
+    const txFee = opFeeCostInAda + fee 
+    const newAdaReserveAmt = adaReserveAmt + fee + adaToBeAddedInReserve
+    
+    const coll = calcCollPct(djedAmount, adaUsdRate, newAdaReserveAmt)
+    
+    if (coll != 0 && coll > 800) {
+      toast.error('Too much collateralization. Try to mint less $SHEN or buy some $DJED first')
+      return
+    }
+
+    const newShenPriceInAda = shenPriceInAda(totalShenAmount, newAdaReserveAmt, djedAmount, adaUsdRate)
+    
+    setShenPrice(newShenPriceInAda)
+    setShenAmount(totalShenAmount)
+    setAdaReserveAmt(newAdaReserveAmt)
+    
+    // Fees
+    setFeeTotal(feeTotal + fee)
+    setOpFeeTotal(opFeeCostInAda + opFeeTotal)
+    
+    setCollateralColor(coll)
+    setCollateralPct(coll)
+
+    toast.success('You successfully minted ' + shenAmountToMint + ' $shen \n\nFor ' + parseFloat(adaToBeAddedInReserve).toFixed(4) + ' $ada.\n\nFees: ' + parseFloat(txFee).toFixed(4) + ' $ada', { duration: 7000 })
+  }
+
   async function burnShen(shenAmountToBurn) {
+
+    if (shenAmountToBurn < minShenBurnAmount) {
+      toast.error('You cannot burn less than ' + minShenBurnAmount + ' $shen')
+      return
+    }
 
     if (shenAmountToBurn > shenAmount) {
       toast.error('Trying to burn more shen than the circulating supply')
@@ -159,39 +168,32 @@ export default function Home() {
     }
 
     const totalShenAmount = shenAmount - shenAmountToBurn
-
     const currentShenPriceInAda = shenPriceInAda(shenAmount, adaReserveAmt, djedAmount, adaUsdRate)
-    console.log('currentShenPriceInAda: ' + currentShenPriceInAda)
-
     const adaToBeRemovedFromReserve = currentShenPriceInAda * shenAmountToBurn
-    console.log('adaToBeRemovedFromReserve: ' + adaToBeRemovedFromReserve)
-
     const fee = shenBurnFeePct * adaToBeRemovedFromReserve
-    console.log('fee: ' + fee)
-
+    const txFee = opFeeCostInAda + fee
     const newAdaReserveAmt = adaReserveAmt + fee - adaToBeRemovedFromReserve
-    console.log('newAdaReserveAmt: ' + newAdaReserveAmt)
-
     const coll = calcCollPct(djedAmount, adaUsdRate, newAdaReserveAmt)
-    console.log('coll: ' + coll)
 
     if (coll != 0 && coll < 400) {
       toast.error('Not enough collateral. Try to burn less $SHEN')
       return
     }
 
+    const newShenPriceInAda = shenPriceInAda(totalShenAmount, newAdaReserveAmt, djedAmount, adaUsdRate)
+    
     setShenAmount(totalShenAmount)
     setAdaReserveAmt(newAdaReserveAmt)
-    setFeeTotal(feeTotal + fee)
-
-    const newShenPriceInAda = shenPriceInAda(totalShenAmount, newAdaReserveAmt, djedAmount, adaUsdRate)
-    console.log('newShenPriceInAda: ' + newShenPriceInAda)
     setShenPrice(newShenPriceInAda)
+
+    // Fees
+    setFeeTotal(feeTotal + fee)
+    setOpFeeTotal(opFeeCostInAda + opFeeTotal)
 
     setCollateralColor(coll)
     setCollateralPct(coll)
 
-    toast.success('You successfully burned ' + shenAmountToBurn + ' $shen \n\nReceived ' + parseFloat(adaToBeRemovedFromReserve).toFixed(4) + ' $ada.\n\nFees: ' + parseFloat(fee).toFixed(4) + ' $ada', { duration: 7000 })
+    toast.success('You successfully burned ' + shenAmountToBurn + ' $shen \n\nReceived ' + parseFloat(adaToBeRemovedFromReserve).toFixed(4) + ' $ada.\n\nFees: ' + parseFloat(txFee).toFixed(4) + ' $ada', { duration: 7000 })
   }
 
   async function mintOneShen() {
@@ -200,46 +202,45 @@ export default function Home() {
 
   async function mintDjed(djedAmountToMint) {
 
+    if (djedAmountToMint < minDjedMintAmount) {
+      toast.error('You cannot mint less than ' + minDjedMintAmount + ' $djed')
+      return
+    }
+
     const totalDjedAmount = djedAmount + djedAmountToMint
-    console.log('totalDjedAmount: ' + totalDjedAmount)
-
     const adaToBeAddedInReserve = djedAmountToMint / adaUsdRate
-    console.log('adaToBeAddedInReserve: ' + adaToBeAddedInReserve)
-
-    const opFee = opFeePct * adaToBeAddedInReserve
-    console.log('opFee: ' + opFee)
-
     const fee = djedMintFeePct * adaToBeAddedInReserve
-    console.log('fee: ' + fee)
-
+    const txFee = opFeeCostInAda + fee
     const newAdaReserveAmt = adaReserveAmt + fee + adaToBeAddedInReserve
-    console.log('newAdaReserveAmt: ' + newAdaReserveAmt)
-
     const coll = calcCollPct(totalDjedAmount, adaUsdRate, newAdaReserveAmt)
-    console.log('coll: ' + coll)
 
     if (coll == 0 || coll < 400) {
       toast.error('Not enough collateral. Try to mint less $DJED or buy some $SHEN first')
       return
     }
 
-    setDjedAmount(totalDjedAmount)
-
-    setAdaReserveAmt(newAdaReserveAmt)
-    setOpFeeTotal(opFeeTotal + opFee)
-    setFeeTotal(feeTotal + fee)
-
     const newShenPriceInAda = shenPriceInAda(shenAmount, newAdaReserveAmt, totalDjedAmount, adaUsdRate)
-    console.log('newShenPriceInAda: ' + newShenPriceInAda)
+
+    setDjedAmount(totalDjedAmount)
+    setAdaReserveAmt(newAdaReserveAmt)
     setShenPrice(newShenPriceInAda)
+
+    // Fees
+    setFeeTotal(feeTotal + fee)
+    setOpFeeTotal(opFeeCostInAda + opFeeTotal)
 
     setCollateralColor(coll)
     setCollateralPct(coll)
 
-    toast.success('You successfully minted ' + djedAmountToMint + ' $djed \n\nFor ' + parseFloat(adaToBeAddedInReserve).toFixed(4) + ' $ada.\n\nFees: ' + parseFloat(fee + opFee).toFixed(4) + ' $ada', { duration: 7000 })
+    toast.success('You successfully minted ' + djedAmountToMint + ' $djed \n\nFor ' + parseFloat(adaToBeAddedInReserve).toFixed(4) + ' $ada.\n\nFees: ' + parseFloat(txFee).toFixed(4) + ' $ada', { duration: 7000 })
   }
 
   async function burnDjed(djedAmountToBurn) {
+
+    if (djedAmountToBurn < minDjedBurnAmount) {
+      toast.error('You cannot burn less than ' + minDjedBurnAmount + ' $djed')
+      return
+    }
 
     if (djedAmountToBurn > djedAmount) {
       toast.error('Trying to burn more djed than the circulating supply')
@@ -247,37 +248,29 @@ export default function Home() {
     }
 
     const totalDjedAmount = djedAmount - djedAmountToBurn
-    console.log('totalDjedAmount: ' + totalDjedAmount)
-
     const adaToBeRemoedFromReserve = djedAmountToBurn / adaUsdRate
-    console.log('adaToBeRemoedFromReserve: ' + adaToBeRemoedFromReserve)
-
-    const opFee = opFeePct * adaToBeRemoedFromReserve
-    console.log('opFee: ' + opFee)
-
     const fee = djedBurnFeePct * adaToBeRemoedFromReserve
-    console.log('fee: ' + fee)
-
+    const txFee = opFeeCostInAda + fee
     const newAdaReserveAmt = adaReserveAmt + fee - adaToBeRemoedFromReserve
     console.log('newAdaReserveAmt: ' + newAdaReserveAmt)
 
     const coll = calcCollPct(totalDjedAmount, adaUsdRate, newAdaReserveAmt)
     console.log('coll: ' + coll)
 
-    setDjedAmount(totalDjedAmount)
-
-    setAdaReserveAmt(newAdaReserveAmt)
-    setOpFeeTotal(opFeeTotal + opFee)
-    setFeeTotal(feeTotal + fee)
-
     const newShenPriceInAda = shenPriceInAda(shenAmount, newAdaReserveAmt, totalDjedAmount, adaUsdRate)
-    console.log('newShenPriceInAda: ' + newShenPriceInAda)
+
+    setDjedAmount(totalDjedAmount)
+    setAdaReserveAmt(newAdaReserveAmt)
     setShenPrice(newShenPriceInAda)
 
+    // Fees
+    setFeeTotal(feeTotal + fee)
+    setOpFeeTotal(opFeeCostInAda + opFeeTotal)
+    
     setCollateralColor(coll)
     setCollateralPct(coll)
 
-    toast.success('You successfully burned ' + djedAmountToBurn + ' $djed \n\nReceived ' + parseFloat(adaToBeRemoedFromReserve).toFixed(4) + ' $ada.\n\nFees: ' + parseFloat(fee + opFee).toFixed(4) + ' $ada', { duration: 7000 })
+    toast.success('You successfully burned ' + djedAmountToBurn + ' $djed \n\nReceived ' + parseFloat(adaToBeRemoedFromReserve).toFixed(4) + ' $ada.\n\nFees: ' + parseFloat(txFee).toFixed(4) + ' $ada', { duration: 7000 })
   }
 
   async function mintOneDjed() {
